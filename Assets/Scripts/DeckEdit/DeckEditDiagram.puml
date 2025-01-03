@@ -1,0 +1,54 @@
+﻿@startuml
+
+package Domain
+{
+package Core
+{
+class CardPool
+class CardPoolCard
+class Deck
+class DeckCard
+}
+
+package UseCase
+{
+class CardPoolReset
+interface ICardListLoader
+}
+
+
+}
+
+package Infrastructure
+{
+class DatabaseCardListLoader
+}
+
+package UIs
+{
+class CardPoolButtonPresenter
+class DeckCardButtonPresenter
+package Binder
+{
+class CardPoolButtonBinder
+class DeckCardButtonBinder
+}
+}
+
+Deck -u-> DeckCard
+CardPool -u-> CardPoolCard
+
+CardPoolReset -> CardPool
+CardPoolReset -> ICardListLoader
+
+DeckCardButtonPresenter -u-> Deck
+CardPoolButtonPresenter -u-> CardPool
+DeckCardButtonBinder -u-> DeckCardButtonPresenter
+CardPoolButtonBinder -u-> CardPoolButtonPresenter
+
+DeckCardButtonBinder -u-> Deck
+CardPoolButtonBinder -u-> CardPool
+
+DatabaseCardListLoader -u--|> ICardListLoader
+
+@enduml
